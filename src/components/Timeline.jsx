@@ -137,6 +137,14 @@ const Timeline = () => {
       technologies: ["Java", "Spring Boot", "REST API", "MySQL", "Agile"],
     },
     {
+      title: "Java Developer Intern",
+      company: "Shekru Labs",
+      period: "Nov 2023 - May 2024",
+      description:
+        "Developed core backend modules for a Hospital Management System. Optimized MongoDB queries and integrated secure REST APIs using Java and Spring Boot.",
+      technologies: ["Java", "Spring Boot", "MongoDB", "REST API", "Agile"],
+    },
+    {
       title: "Full Stack Development Training",
       company: "Self-Learning & Projects",
       period: "2023 - 2024",

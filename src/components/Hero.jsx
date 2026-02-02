@@ -223,8 +223,23 @@ const Hero = () => {
         padding: "0 5%",
         position: "relative",
         overflow: "hidden",
+        backgroundImage: "url('/images/hero-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background:
+            "linear-gradient(to right, rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.7))",
+          zIndex: 1,
+        }}
+      />
       <div className="hero-content" style={{ zIndex: 2, maxWidth: "600px" }}>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

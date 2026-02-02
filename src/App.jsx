@@ -1,20 +1,16 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Certifications from "./components/Certifications";
-import Education from "./components/Education";
 import Contact from "./components/Contact";
 import ParticleBackground from "./components/ParticleBackground";
 import CustomCursor from "./components/CustomCursor";
-import Stats from "./components/Stats";
 import Timeline from "./components/Timeline";
 import SkillsVisualization from "./components/SkillsVisualization";
 import StoryIntro from "./components/StoryIntro";
 import VisualStory from "./components/VisualStory";
-import InteractiveCodePlayground from "./components/InteractiveCodePlayground";
+import HuggingFaceLLM from "./components/HuggingFaceLLM";
 import ChooseYourPath from "./components/ChooseYourPath";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Heart, ArrowUp } from "lucide-react";
@@ -39,11 +35,11 @@ function App() {
         {/* Chapter 3: The Full Story */}
         <StoryIntro />
 
-        {/* Chapter 4: The Skills & Expertise (Interactive Progress Bars) */}
+        {/* Chapter 4: The Skills & Expertise */}
         <SkillsVisualization />
 
-        {/* Chapter 5: AI Agent Sandbox (Interactive Playground) */}
-        <InteractiveCodePlayground />
+        {/* Chapter 5: AI Intelligence (Hugging Face LLM Lab) */}
+        <HuggingFaceLLM />
 
         {/* Chapter 6: The Values */}
         <VisualStory />
@@ -54,10 +50,10 @@ function App() {
         {/* Chapter 8: The Creations (Projects) */}
         <Projects />
 
-        {/* Chapter 9: Achievements & Recognition (Flippable Cards) */}
+        {/* Chapter 9: Achievements & Recognition */}
         <Certifications />
 
-        {/* Chapter 10: The Next Chapter (Contact) */}
+        {/* Chapter 10: Let's Connect */}
         <Contact />
       </main>
 

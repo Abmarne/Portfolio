@@ -326,139 +326,166 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="projects">
-      <h2
+    <section
+      id="projects"
+      style={{
+        padding: "100px 20px",
+        maxWidth: "1200px",
+        margin: "0 auto",
+        backgroundImage: "url('/images/projects-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        position: "relative",
+        borderRadius: "40px",
+        marginTop: "50px",
+        overflow: "hidden",
+      }}
+    >
+      <div
         style={{
-          fontSize: "2.5rem",
-          marginBottom: "3rem",
-          textAlign: "center",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(10, 10, 10, 0.92)",
+          zIndex: 1,
         }}
-      >
-        Featured <span className="gradient-text">Projects</span>
-      </h2>
-
-      {/* Highlighted Project */}
-      <div style={{ marginBottom: "60px" }}>
-        <div
+      />
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <h2
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "40px",
-            alignItems: "center",
+            fontSize: "2.5rem",
+            marginBottom: "3rem",
+            textAlign: "center",
           }}
         >
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <span
-              style={{
-                color: "var(--accent-green)",
-                fontWeight: "600",
-                textTransform: "uppercase",
-                letterSpacing: "2px",
-                fontSize: "0.8rem",
-              }}
-            >
-              Open Source Library
-            </span>
-            <h3 style={{ fontSize: "2.2rem", margin: "10px 0 20px 0" }}>
-              Regulated Form Validator
-            </h3>
-            <p
-              style={{
-                color: "var(--text-secondary)",
-                lineHeight: 1.8,
-                marginBottom: "20px",
-              }}
-            >
-              A YAML-driven regulated form validator for structured, secure, and
-              reusable form validation. Centralize validation rules and enforce
-              compliance across enterprise workflows.
-            </p>
-            <div style={{ display: "flex", gap: "20px" }}>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  color: "var(--accent-blue)",
-                }}
-              >
-                <Github size={20} /> GitHub
-              </a>
-              <a
-                href="https://npmjs.com"
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  color: "var(--accent-green)",
-                }}
-              >
-                <Code size={20} /> NPM Package
-              </a>
-            </div>
-          </motion.div>
+          Featured <span className="gradient-text">Projects</span>
+        </h2>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="glass"
-            style={{ padding: "20px", borderRadius: "20px" }}
+        {/* Highlighted Project */}
+        <div style={{ marginBottom: "60px" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "40px",
+              alignItems: "center",
+            }}
           >
-            <ul style={{ listStyle: "none" }}>
-              {[
-                "Centralized validation rules in YAML",
-                "Enforces compliance across forms",
-                "Extensible for enterprise workflows",
-              ].map((feat, i) => (
-                <li
-                  key={i}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <span
+                style={{
+                  color: "var(--accent-green)",
+                  fontWeight: "600",
+                  textTransform: "uppercase",
+                  letterSpacing: "2px",
+                  fontSize: "0.8rem",
+                }}
+              >
+                Open Source Library
+              </span>
+              <h3 style={{ fontSize: "2.2rem", margin: "10px 0 20px 0" }}>
+                Regulated Form Validator
+              </h3>
+              <p
+                style={{
+                  color: "var(--text-secondary)",
+                  lineHeight: 1.8,
+                  marginBottom: "20px",
+                }}
+              >
+                A YAML-driven regulated form validator for structured, secure,
+                and reusable form validation. Centralize validation rules and
+                enforce compliance across enterprise workflows.
+              </p>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noreferrer"
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "10px",
-                    marginBottom: "10px",
-                    color: "var(--text-secondary)",
+                    gap: "8px",
+                    color: "var(--accent-blue)",
                   }}
                 >
-                  <div
+                  <Github size={20} /> GitHub
+                </a>
+                <a
+                  href="https://npmjs.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: "var(--accent-green)",
+                  }}
+                >
+                  <Code size={20} /> NPM Package
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="glass"
+              style={{ padding: "20px", borderRadius: "20px" }}
+            >
+              <ul style={{ listStyle: "none" }}>
+                {[
+                  "Centralized validation rules in YAML",
+                  "Enforces compliance across forms",
+                  "Extensible for enterprise workflows",
+                ].map((feat, i) => (
+                  <li
+                    key={i}
                     style={{
-                      width: "6px",
-                      height: "6px",
-                      background: "var(--accent-green)",
-                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      marginBottom: "10px",
+                      color: "var(--text-secondary)",
                     }}
-                  />
-                  {feat}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+                  >
+                    <div
+                      style={{
+                        width: "6px",
+                        height: "6px",
+                        background: "var(--accent-green)",
+                        borderRadius: "50%",
+                      }}
+                    />
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+
+          <RegulatedFormValidatorDemo />
         </div>
 
-        <RegulatedFormValidatorDemo />
-      </div>
-
-      {/* Grid Projects */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "25px",
-        }}
-      >
-        {projects.map((proj, i) => (
-          <ProjectCard key={i} {...proj} />
-        ))}
+        {/* Grid Projects */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "25px",
+          }}
+        >
+          {projects.map((proj, i) => (
+            <ProjectCard key={i} {...proj} />
+          ))}
+        </div>
       </div>
     </section>
   );

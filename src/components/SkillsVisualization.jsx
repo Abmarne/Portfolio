@@ -85,6 +85,7 @@ const SkillsVisualization = () => {
 
   return (
     <section
+      id="skills"
       style={{
         padding: "100px 20px",
         maxWidth: "1200px",
