@@ -19,8 +19,10 @@ import {
 } from "lucide-react";
 
 const SkillIcon = ({ icon: Icon, name }) => (
-  <div
+  <motion.div
     className="skill-item"
+    whileHover={{ scale: 1.1, y: -5 }}
+    whileTap={{ scale: 0.95 }}
     style={{
       display: "flex",
       flexDirection: "column",
@@ -31,13 +33,26 @@ const SkillIcon = ({ icon: Icon, name }) => (
       borderRadius: "15px",
       border: "1px solid rgba(255, 255, 255, 0.05)",
       transition: "all 0.3s ease",
+      cursor: "pointer",
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.background = "rgba(0, 136, 255, 0.1)";
+      e.currentTarget.style.border = "1px solid rgba(0, 136, 255, 0.3)";
+      e.currentTarget.style.boxShadow = "0 0 20px rgba(0, 136, 255, 0.3)";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+      e.currentTarget.style.border = "1px solid rgba(255, 255, 255, 0.05)";
+      e.currentTarget.style.boxShadow = "none";
     }}
   >
-    <Icon size={32} color="var(--accent-blue)" />
+    <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.6 }}>
+      <Icon size={32} color="var(--accent-blue)" />
+    </motion.div>
     <span style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>
       {name}
     </span>
-  </div>
+  </motion.div>
 );
 
 const About = () => {

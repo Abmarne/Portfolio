@@ -195,6 +195,23 @@ function Scene() {
 }
 
 const Hero = () => {
+  const [typedText, setTypedText] = React.useState("");
+  const fullText = "Full Stack Developer & Open Source Contributor";
+
+  React.useEffect(() => {
+    let index = 0;
+    const timer = setInterval(() => {
+      if (index <= fullText.length) {
+        setTypedText(fullText.slice(0, index));
+        index++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 50);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section
       className="hero"
@@ -225,9 +242,17 @@ const Hero = () => {
             fontSize: "1.5rem",
             color: "var(--text-secondary)",
             marginBottom: "1.5rem",
+            minHeight: "2rem",
           }}
         >
-          Full Stack Developer & Open Source Contributor
+          {typedText}
+          <span
+            style={{
+              borderRight: "2px solid var(--accent-blue)",
+              animation: "blink 1s step-end infinite",
+              marginLeft: "2px",
+            }}
+          />
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -251,7 +276,9 @@ const Hero = () => {
           className="hero-buttons"
           style={{ display: "flex", gap: "20px" }}
         >
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: "var(--glow-blue)" }}
+            whileTap={{ scale: 0.95 }}
             style={{
               background: "var(--accent-gradient)",
               padding: "12px 30px",
@@ -266,8 +293,10 @@ const Hero = () => {
             }
           >
             View My Work
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: "var(--glow-blue)" }}
+            whileTap={{ scale: 0.95 }}
             style={{
               border: "1px solid var(--accent-blue)",
               padding: "12px 30px",
@@ -278,7 +307,7 @@ const Hero = () => {
             onClick={() => window.open("/resume.pdf", "_blank")}
           >
             Download Resume
-          </button>
+          </motion.button>
         </motion.div>
       </div>
 
