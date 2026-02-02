@@ -76,12 +76,13 @@ const Experience = () => {
     },
     {
       company: "Shekru Labs",
-      role: "Full Stack Developer Intern",
-      date: "Nov 2023 – May 2024",
+      role: "Java Developer Intern",
+      date: "Nov 2023 – May 2024 (6 Months)",
       highlights: [
-        "Contributed to Hospital Management System (login, patient, staff modules).",
-        "Enhanced UI responsiveness and MongoDB query performance.",
-        "Collaborated using Git, Postman, Agile workflows.",
+        "Developed core backend modules for Hospital Management System using Java and Spring Boot.",
+        "Implemented secure login, patient record management, and staff allocation modules.",
+        "Optimized MongoDB query performance and integrated REST APIs with Java backend.",
+        "Collaborated in an Agile environment using Git, Postman, and Scrum workflows.",
       ],
     },
   ];

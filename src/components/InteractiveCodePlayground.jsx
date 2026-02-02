@@ -1,58 +1,64 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, RotateCcw, Code2, Terminal } from "lucide-react";
+import { Play, RotateCcw, Brain, Terminal, Sparkles } from "lucide-react";
 
 const InteractiveCodePlayground = () => {
-  const [activeTab, setActiveTab] = useState("javascript");
+  const [activeTab, setActiveTab] = useState("ai_prompt");
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
 
   const codeExamples = {
-    javascript: {
-      code: `// Try editing this code!
-const greet = (name) => {
-  return \`Hello, \${name}! 👋\`;
+    ai_prompt: {
+      code: `// AI Prompt Engineering Simulation
+const systemPrompt = "You are a helpful coding assistant.";
+const userQuery = "Explain how neural networks learn.";
+
+async function simulateAIResponse(query) {
+  console.log("Analyzing prompt...");
+  console.log("Context window: 128k tokens");
+  console.log("Thinking: [Backpropagation, Gradient Descent, Weights]");
+  return "Neural networks learn by adjusting internal weights to minimize error...";
+}
+
+simulateAIResponse(userQuery).then(res => console.log("AI:", res));`,
+      language: "Prompting",
+    },
+    inference: {
+      code: `// Model Inference Logic (Pseudo-code)
+class LLMModel {
+  constructor(modelName) {
+    this.name = modelName;
+    this.parameters = "175B";
+  }
+
+  generate(prompt) {
+    console.log(\`Running inference on \${this.name}...\`);
+    return "Optimized response generated.";
+  }
+}
+
+const gpt4 = new LLMModel("GPT-4o");
+console.log(gpt4.generate("Hello AI!"));`,
+      language: "Inference",
+    },
+    agents: {
+      code: `// AI Agent Tool Use
+const agent = {
+  tools: ["web_search", "calculator"],
+  plan: (task) => {
+    console.log("Task:", task);
+    console.log("Step 1: Search for real-time data");
+    console.log("Step 2: Process results with LLM");
+    return "Success: Task completed using tool 'web_search'";
+  }
 };
 
-console.log(greet("Developer"));
-console.log("Welcome to my portfolio!");`,
-      language: "JavaScript",
-    },
-    react: {
-      code: `// React Component Example
-const WelcomeCard = ({ name }) => {
-  const [count, setCount] = useState(0);
-  
-  return (
-    <div>
-      <h2>Hello, {name}!</h2>
-      <p>Clicked: {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me!
-      </button>
-    </div>
-  );
-};`,
-      language: "React",
-    },
-    java: {
-      code: `// Java Spring Boot Example
-@RestController
-@RequestMapping("/api")
-public class GreetingController {
-    
-    @GetMapping("/greet")
-    public ResponseEntity<String> greet() {
-        return ResponseEntity.ok(
-            "Hello from Spring Boot! 🚀"
-        );
-    }
-}`,
-      language: "Java",
+console.log(agent.plan("Find recent AI news"));`,
+      language: "Agentic",
     },
   };
 
-  const [code, setCode] = useState(codeExamples.javascript.code);
+  const [code, setCode] = useState(codeExamples.ai_prompt.code);
 
   const runCode = () => {
     setIsRunning(true);
@@ -60,25 +66,27 @@ public class GreetingController {
 
     setTimeout(() => {
       try {
-        // Capture console.log output
         const logs = [];
         const originalLog = console.log;
         console.log = (...args) => {
           logs.push(args.join(" "));
         };
 
-        // Execute the code
-        eval(code);
+        // Execute as async if possible or just eval
+        if (code.includes("await") || code.includes("then")) {
+          // Basic simulation of async execution in eval
+          eval(code);
+        } else {
+          eval(code);
+        }
 
-        // Restore console.log
         console.log = originalLog;
-
-        setOutput(logs.join("\n") || "✅ Code executed successfully!");
+        setOutput(logs.join("\n") || "✅ AI Process Complete!");
       } catch (error) {
-        setOutput(`❌ Error: ${error.message}`);
+        setOutput(`❌ AI Error: ${error.message}`);
       }
       setIsRunning(false);
-    }, 500);
+    }, 800);
   };
 
   const resetCode = () => {
@@ -107,17 +115,21 @@ public class GreetingController {
         style={{ textAlign: "center", marginBottom: "60px" }}
       >
         <motion.div
-          animate={{ rotate: [0, 360] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          animate={{
+            scale: [1, 1.1, 1],
+            rotate: [0, 5, -5, 0],
+          }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           style={{ display: "inline-block", marginBottom: "20px" }}
         >
-          <Code2 size={48} color="var(--accent-blue)" />
+          <Brain size={48} color="var(--accent-blue)" />
         </motion.div>
         <h2 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>
-          Try My <span className="gradient-text">Code</span>
+          AI Agent <span className="gradient-text">Sandbox</span>
         </h2>
         <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem" }}>
-          Interactive playground - Edit and run code examples from my tech stack
+          Explore AI logic, prompt structures, and agentic workflows in
+          real-time
         </p>
       </motion.div>
 
@@ -206,28 +218,22 @@ public class GreetingController {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={runCode}
-              disabled={isRunning || activeTab !== "javascript"}
+              disabled={isRunning}
               style={{
                 padding: "12px 30px",
-                background:
-                  activeTab === "javascript"
-                    ? "var(--accent-gradient)"
-                    : "rgba(255, 255, 255, 0.1)",
+                background: "var(--accent-gradient)",
                 border: "none",
                 borderRadius: "10px",
-                color:
-                  activeTab === "javascript"
-                    ? "black"
-                    : "var(--text-secondary)",
+                color: "black",
                 fontWeight: "600",
-                cursor: activeTab === "javascript" ? "pointer" : "not-allowed",
+                cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
               }}
             >
-              <Play size={18} />
-              {isRunning ? "Running..." : "Run Code"}
+              <Sparkles size={18} />
+              {isRunning ? "Simulating..." : "Run Simulation"}
             </motion.button>
 
             <motion.button
@@ -250,19 +256,6 @@ public class GreetingController {
               <RotateCcw size={18} />
               Reset
             </motion.button>
-
-            {activeTab !== "javascript" && (
-              <p
-                style={{
-                  color: "var(--text-secondary)",
-                  fontSize: "0.9rem",
-                  margin: "auto 0",
-                  fontStyle: "italic",
-                }}
-              >
-                💡 Switch to JavaScript tab to run code
-              </p>
-            )}
           </div>
 
           {/* Output */}
@@ -324,8 +317,8 @@ public class GreetingController {
           fontSize: "0.95rem",
         }}
       >
-        💡 <strong>Fun fact:</strong> I write code like this every day, but with
-        more coffee ☕
+        💡 <strong>AI Thought:</strong> I'm not just a developer; I'm an
+        architect for the silicon era. 🤖
       </motion.div>
     </section>
   );

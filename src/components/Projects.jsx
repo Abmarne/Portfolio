@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, Code, Play } from "lucide-react";
+import { ExternalLink, Github, Code, Play, Sparkles } from "lucide-react";
 import yaml from "js-yaml";
 import { validateAll } from "regulated-form-validator";
 
@@ -98,36 +98,27 @@ const RegulatedFormValidatorDemo = () => {
       - type: pan
         message: "Invalid PAN format"`);
 
-  const [validationResult, setValidationResult] = useState(null);
+  const [parsedFields, setParsedFields] = useState([]);
+  const [error, setError] = useState(null);
 
-  const handleValidate = () => {
+  const handlePreview = () => {
     try {
       const parsed = yaml.load(yamlInput);
       if (!parsed || !parsed.fields) {
         throw new Error('YAML must contain a "fields" array');
       }
-
-      // Simulate validation of some dummy data against these fields
-      const dummyValues = {};
-      parsed.fields.forEach((f) => {
-        dummyValues[f.name] = ""; // Empty values to trigger 'required' checks
-      });
-
-      const results = validateAll(parsed.fields, dummyValues);
-
-      setValidationResult({
-        status: "success",
-        message:
-          "YAML Schema parsed successfully. Below are validation results for empty inputs:",
-        data: results,
-      });
+      setParsedFields(parsed.fields);
+      setError(null);
     } catch (e) {
-      setValidationResult({
-        status: "error",
-        message: "Validation Error: " + e.message,
-      });
+      setError(e.message);
+      setParsedFields([]);
     }
   };
+
+  // Run preview on initial load
+  React.useEffect(() => {
+    handlePreview();
+  }, []);
 
   return (
     <div
@@ -142,8 +133,8 @@ const RegulatedFormValidatorDemo = () => {
           gap: "10px",
         }}
       >
-        <Play size={24} color="var(--accent-green)" />
-        Regulated Form Validator Live Demo
+        <Sparkles size={24} color="var(--accent-green)" />
+        Regulated Form Validator: Visual Representation
       </h3>
       <div
         style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}
@@ -164,7 +155,7 @@ const RegulatedFormValidatorDemo = () => {
             onChange={(e) => setYamlInput(e.target.value)}
             style={{
               width: "100%",
-              height: "250px",
+              height: "300px",
               background: "#0a0a0a",
               color: "#00ff88",
               fontFamily: "monospace",
@@ -175,7 +166,7 @@ const RegulatedFormValidatorDemo = () => {
             }}
           />
           <button
-            onClick={handleValidate}
+            onClick={handlePreview}
             style={{
               width: "100%",
               marginTop: "15px",
@@ -186,7 +177,7 @@ const RegulatedFormValidatorDemo = () => {
               color: "black",
             }}
           >
-            Run Validation Test
+            Update Visual Preview
           </button>
         </div>
         <div>
@@ -198,46 +189,101 @@ const RegulatedFormValidatorDemo = () => {
               color: "var(--text-secondary)",
             }}
           >
-            Validation Results
+            Live Visual Representation
           </label>
           <div
             style={{
-              height: "250px",
-              background: "#0a0a0a",
-              padding: "15px",
+              height: "300px",
+              background: "rgba(255, 255, 255, 0.02)",
+              padding: "20px",
               borderRadius: "10px",
               border: "1px solid rgba(255,255,255,0.1)",
               overflowY: "auto",
             }}
           >
-            {validationResult ? (
+            {error ? (
+              <div style={{ color: "#ff4444", fontSize: "0.9rem" }}>
+                ❌ {error}
+              </div>
+            ) : parsedFields.length > 0 ? (
               <div
                 style={{
-                  color:
-                    validationResult.status === "success"
-                      ? "var(--accent-green)"
-                      : "#ff4444",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "15px",
                 }}
               >
-                <p style={{ fontWeight: "bold", marginBottom: "10px" }}>
-                  [{validationResult.status.toUpperCase()}]
-                </p>
-                <p style={{ fontSize: "0.9rem" }}>{validationResult.message}</p>
-                {validationResult.data && (
-                  <pre
-                    style={{
-                      fontSize: "0.8rem",
-                      marginTop: "10px",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
-                    {JSON.stringify(validationResult.data, null, 2)}
-                  </pre>
-                )}
+                {parsedFields.map((field, idx) => (
+                  <div key={idx}>
+                    <label
+                      style={{
+                        display: "block",
+                        fontSize: "0.85rem",
+                        marginBottom: "5px",
+                        color: "white",
+                      }}
+                    >
+                      {field.label}{" "}
+                      {field.validation?.find((v) => v.type === "required") && (
+                        <span style={{ color: "#ff4444" }}>*</span>
+                      )}
+                    </label>
+                    <input
+                      type={field.type || "text"}
+                      placeholder={`Enter ${field.label}...`}
+                      disabled
+                      style={{
+                        width: "100%",
+                        padding: "10px",
+                        background: "rgba(255, 255, 255, 0.05)",
+                        border: "1px solid rgba(255, 255, 255, 0.1)",
+                        borderRadius: "5px",
+                        color: "white",
+                        fontSize: "0.9rem",
+                      }}
+                    />
+                    <div
+                      style={{
+                        marginTop: "4px",
+                        display: "flex",
+                        gap: "5px",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {field.validation?.map((v, i) => (
+                        <span
+                          key={i}
+                          style={{
+                            fontSize: "0.7rem",
+                            color: "var(--accent-blue)",
+                            background: "rgba(0, 136, 255, 0.1)",
+                            padding: "2px 6px",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          {v.type}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                <button
+                  disabled
+                  style={{
+                    marginTop: "10px",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    background: "rgba(255,255,255,0.1)",
+                    color: "white",
+                    border: "none",
+                  }}
+                >
+                  Submit Form (Preview)
+                </button>
               </div>
             ) : (
               <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
-                Output will appear here after validation...
+                Waiting for YAML input...
               </p>
             )}
           </div>

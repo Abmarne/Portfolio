@@ -42,7 +42,7 @@ function App() {
         {/* Chapter 4: The Skills & Expertise (Interactive Progress Bars) */}
         <SkillsVisualization />
 
-        {/* Chapter 5: Try My Code (Interactive Playground) */}
+        {/* Chapter 5: AI Agent Sandbox (Interactive Playground) */}
         <InteractiveCodePlayground />
 
         {/* Chapter 6: The Values */}
